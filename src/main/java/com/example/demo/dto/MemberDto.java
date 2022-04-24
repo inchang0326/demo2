@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.entity.Member;
 import lombok.Data;
 
 @Data
@@ -14,5 +15,11 @@ public class MemberDto {
         this.id = id;
         this.username = username;
         this.teamname = teamname;
+    }
+
+    public MemberDto(Member member) {
+        this.id = member.getId();
+        this.username = member.getName();
+        this.teamname = null;
     }
 }
