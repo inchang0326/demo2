@@ -4,16 +4,15 @@ import com.example.demo.dto.MemberDto;
 import com.example.demo.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.LockModeType;
+import javax.persistence.QueryHint;
 import java.util.Collection;
 import java.util.List;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
     /*
         쿼리 메소드
@@ -78,4 +77,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Override
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
+
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+    Member findReadOnlyMemberByName(String name);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Member findLockMemberByName(String name);
 }

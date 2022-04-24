@@ -103,4 +103,32 @@ class MemberRepositoryTest {
 
         allMember.forEach(m -> System.out.println(m.getTeam().getName()));
     }
+
+    @Test
+    public void queryHintTest() {
+        Member member = new Member("iiinchang");
+        memberRepository.save(member);
+        entityManager.flush();
+        entityManager.clear();
+
+        Member findMember = memberRepository.findReadOnlyMemberByName("iiinchang");
+        findMember.setName("haha");
+    }
+
+    @Test
+    public void lockQueryTest() {
+        Member member = new Member("haha");
+        memberRepository.save(member);
+
+        entityManager.flush();
+        entityManager.clear();
+
+        Member findMember = memberRepository.findLockMemberByName("haha");
+    }
+
+    @Test
+    public void callCustomTest() {
+        List<Member> members = memberRepository.findMembers();
+        members.forEach(m -> System.out.println(m.getName()));
+    }
 }
