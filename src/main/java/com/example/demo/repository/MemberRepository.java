@@ -12,7 +12,7 @@ import javax.persistence.QueryHint;
 import java.util.Collection;
 import java.util.List;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
     /*
         쿼리 메소드

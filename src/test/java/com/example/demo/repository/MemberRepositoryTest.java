@@ -125,4 +125,10 @@ class MemberRepositoryTest {
 
         Member findMember = memberRepository.findLockMemberByName("haha");
     }
+
+    @Test
+    public void callCustomTest() {
+        List<Member> members = memberRepository.findMembers();
+        members.forEach(m -> System.out.println(m.getName()));
+    }
 }
