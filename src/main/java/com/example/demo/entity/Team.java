@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @ToString(of = {"id", "name"})
-public class Team {
+public class Team extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
