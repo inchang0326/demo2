@@ -138,4 +138,20 @@ class MemberRepositoryTest {
         List<Member> members = memberRepository.findMembers();
         members.forEach(m -> System.out.println(m.getName()));
     }
+
+    @Test
+    public void projectionsTest() {
+        Team team = new Team("TeamA");
+        teamJpaRepository.save(team);
+
+        Member member1 = new Member("inchang1", 30, team);
+        Member member2 = new Member("inchang2", 30, team);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        memberRepository.findNameList();
+
+        List<NameOnly> projectionsByName = memberRepository.findProjectionsByName("inchang1", NameOnly.class);
+        projectionsByName.forEach(n -> System.out.println(n.getName()));
+    }
 }
