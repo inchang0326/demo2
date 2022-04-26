@@ -18,19 +18,19 @@ public class MemberController {
 
     private final MemberRepository memberRepository;
 
-    @PostConstruct
-    public void init() {
-        memberRepository.save(new Member("inchang"));
-        memberRepository.save(new Member("inchang2"));
-        memberRepository.save(new Member("inchang3"));
-        memberRepository.save(new Member("inchang4"));
-        memberRepository.save(new Member("inchang5"));
-        memberRepository.save(new Member("inchang6"));
-        memberRepository.save(new Member("inchang7"));
-        memberRepository.save(new Member("inchang8"));
-        memberRepository.save(new Member("inchang9"));
-        memberRepository.save(new Member("inchang10"));
-    }
+//    @PostConstruct
+//    public void init() {
+//        memberRepository.save(new Member("inchang"));
+//        memberRepository.save(new Member("inchang2"));
+//        memberRepository.save(new Member("inchang3"));
+//        memberRepository.save(new Member("inchang4"));
+//        memberRepository.save(new Member("inchang5"));
+//        memberRepository.save(new Member("inchang6"));
+//        memberRepository.save(new Member("inchang7"));
+//        memberRepository.save(new Member("inchang8"));
+//        memberRepository.save(new Member("inchang9"));
+//        memberRepository.save(new Member("inchang10"));
+//    }
 
     @GetMapping("/get/{id}")
     public String findMember(@PathVariable("id") Long id) {
