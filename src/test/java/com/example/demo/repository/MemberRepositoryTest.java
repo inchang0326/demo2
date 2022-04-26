@@ -94,12 +94,19 @@ class MemberRepositoryTest {
 
             Q. 그냥 join이 포함된 JPQL을 사용하면 되지 않나?
             A. LAZY이므로, join 이후에 team을 조회할때 FTS로 한 번 더 조회하게 됨.
-               즉 위 처럼 수행된 총 쿼리내역은 n+1로 수행 됨.
+               즉 위 처럼 수행된 총e 쿼리내역은 n+1로 수행 됨.
 
             Q. EAGER + join은?
             A. 위와 동일.
+
+            Q. 근데 Query("select m, t from Member m inner join m.team t") 이렇게 하면.. 되지 않나?
+            A. 이렇게 해도 된다. 그런데 일반 조인과 Fetch 조인의 차이점을 알고 상황에 맞게 써야 한다.
+               일반 조인은 select 한 Entity를 영속화 한다. Fetch 조인은 select 한 Entity와 조인 걸린 Entity까지 영속화한다.
+               모든 Entity를 영속화하지 않고 특정 Entity만 영속화 하고 싶은 상황이 온다면, 성능적으로 일반 조인을 사용해야 한다.
+               ex. member_name이 "inchang"인 member를 갖는 team은? member Entity는 영속화 대상이 아님.
+                   위 와 같은 select 리스트 만을 조회하여 메소드를 생성하는 경우에 일반 조인 사용.
          */
-        List<Member> allMember = memberRepository.findAll();
+        List<Member> allMember = memberRepository.findMemberFetchJoin();
 
         allMember.forEach(m -> System.out.println(m.getTeam().getName()));
     }

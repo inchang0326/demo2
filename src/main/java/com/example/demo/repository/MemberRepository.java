@@ -30,7 +30,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
 
     // 실무에 거의 사용되지 않음 > (2)
     // Entity에 쿼리를 작성하는 것과 달리, JPA가 repo 파일에 바로 쿼리를 작성할 수 있는 기능을 제공하기 때문에 비교적 잘 사용되지 않음
-    // 장점은 JPQL의 문법 오류를 컴파일 시점에 발견하게 해줌
+    // 장점은 JPQL의 문법 오류를 컴파´일 시점에 발견하게 해줌
     @Query(name = "Member.findByName")
     List<Member> findByName(@Param("name") String name);
 
@@ -78,6 +78,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
     @EntityGraph(attributePaths = {"team"})
     List<Member> findAll();
 
+    // SQL Hint X. 해당 힌트를 사용하면 JPA는 더티체킹(변경감지)을 하지 않음
     @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Member findReadOnlyMemberByName(String name);
 
