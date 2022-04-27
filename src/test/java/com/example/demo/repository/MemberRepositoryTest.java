@@ -154,4 +154,19 @@ class MemberRepositoryTest {
         List<NameOnly> projectionsByName = memberRepository.findProjectionsByName("inchang1", NameOnly.class);
         projectionsByName.forEach(n -> System.out.println(n.getName()));
     }
+
+    @Test
+    public void nativeQueryTest() {
+        Team team = new Team("TeamA");
+        teamJpaRepository.save(team);
+
+        Member member1 = new Member("inchang1", 30, team);
+        Member member2 = new Member("inchang2", 30, team);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        Page<MemberProjections> result = memberRepository.findByNativeProjections(PageRequest.of(0, 2));
+        List<MemberProjections> content = result.getContent();
+        content.forEach(o -> System.out.println("member name = " + o.getMemberName() + " / team name = " + o.getTeamName()));
+    }
 }
